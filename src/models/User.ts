@@ -1,3 +1,4 @@
+import { Collection } from "./Collection";
 import { ApiSync } from "./ApiSync";
 import { Model } from "./Model";
 // import { AxiosResponse } from "axios";
@@ -18,6 +19,17 @@ export class User extends Model<UserProps> {
       new Eventing(),
       new ApiSync<UserProps>(rootUrl)
     );
+  }
+
+  static buildUserCollection(): Collection<User, UserProps> {
+    return new Collection<User, UserProps>(rootUrl, (json: UserProps) =>
+      User.buildUser(json)
+    );
+  }
+
+  setRandomAge(): void {
+    const age = Math.round(Math.random() * 100);
+    this.set({ age });
   }
 
   // public events: Eventing = new Eventing();

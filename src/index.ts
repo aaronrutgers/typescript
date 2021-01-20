@@ -1,31 +1,16 @@
 import { User } from "./models/User";
+import { UserEdit } from "./views/UserEdit";
+import { UserForm } from "./views/UserForm";
 
-const user = User.buildUser({ id: 1 });
+const user = User.buildUser({ name: "NAME", age: 20 });
 
-user.on("change", () => {
-  console.log(user);
-});
+const root = document.getElementById("root");
 
-user.fetch();
-
-// const colors = {
-//   color: "red",
-//   printColor() {
-//     console.log(this.color);
-//   },
-// };
-
-// colors.printColor();
-// const printColor = colors.printColor;
-// printColor();
-
-// class Person {
-//   constructor(public firstName: string, public lastName: string) {}
-
-//   get fullName(): string {
-//     return `${this.firstName} ${this.lastName}`;
-//   }
-// }
-
-// const person = new Person("firstname", "lastname");
-// console.log(person.fullName);
+if (root) {
+  const userEdit = new UserEdit(root, user);
+  userEdit.render();
+  console.log(userEdit);
+  
+} else {
+  throw new Error("Root element not found");
+}
